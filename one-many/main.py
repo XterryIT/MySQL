@@ -1,7 +1,9 @@
 import pymysql
-from config import host, user,password,database 
+from config import host, user,password,database, make_post, make_category
+
 
 try:
+    #conection to database
     connection = pymysql.connect(
         host = host,
         port = 3306,
@@ -10,47 +12,78 @@ try:
         database = database,
         cursorclass = pymysql.cursors.DictCursor 
     )
-    print("SECSESFULLY conection to ", database)
+    print("SECSESFULLY conection to", database)
 
     print("#" * 30)
 
+
+
+    #inplementing code
     try:
-
-        # #create a new table; relation one-one
+                # #creation of tables
         # with connection.cursor() as cursor:
-        #     screate_table = "CREATE TABLE `users` (id int(11) AUTO_INCREMENT, first_name varchar(20) NOT NULL, last_name varchar(20)NOT NULL,  PRIMARY KEY(id));"
-        #     create_table = "CREATE TABLE `passports` (id int(11) AUTO_INCREMENT,\
-        #                                               passpot_number int(50) NOT NULL,\
-        #                                               city_of_registration varchar(30) NOT NULL,\
-        #                                               fk_passports_users int REFERENCES users(id),\
-        #                                               PRIMARY KEY(id));"
-        #     cursor.execute(create_table)
-      
-        # with connection.cursor() as cursor:
-        #     cursor.execute("INSERT INTO users (first_name, last_name) VALUES ('Homer', 'Simpson');")
-        #     cursor.execute("INSERT INTO users (first_name, last_name) VALUES ('Marge', 'Simpson');")
-        #     cursor.execute("INSERT INTO users (first_name, last_name) VALUES ('Lisa', 'Simpson');")
-        #     cursor.execute("INSERT INTO users (first_name, last_name) VALUES ('Bart', 'Simpson');")
-        #     cursor.execute("INSERT INTO users (first_name, last_name) VALUES ('Megie', 'Simpson');")
-
-        #     cursor.execute("INSERT INTO passports (passpot_number, city_of_registration, fk_passports_users) VALUES (1111, 'Sprinfield', 1);")
-        #     cursor.execute("INSERT INTO passports (passpot_number, city_of_registration, fk_passports_users) VALUES (2222, 'Sprinfield', 2);")
-        #     cursor.execute("INSERT INTO passports (passpot_number, city_of_registration, fk_passports_users) VALUES (3333, 'Sprinfield', 3);")
-        #     cursor.execute("INSERT INTO passports (passpot_number, city_of_registration, fk_passports_users) VALUES (4444, 'Sprinfield', 4);")
-        #     cursor.execute("INSERT INTO passports (passpot_number, city_of_registration, fk_passports_users) VALUES (5555, 'Sprinfield', 5);")
-
-        #     connection
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT passpot_number FROM passports;")
-            cursor.execute("SELECT users.first_name, passports.passpot_number FROM users,passports;")
-            rows = cursor.fetchall()
-            for row in rows:
-                print(row)
+        #     table2 = "CREATE TABLE catiegories(id int(11) NOT NULL AUTO_INCREMENT,\
+        #                                        name VARCHAR(200) NOT NULL,\
+        #                                        PRIMARY KEY(id));"
 
 
+
+        #     table = "CREATE TABLE posts(id int(11) NOT NULL AUTO_INCREMENT,\
+        #                                 post_name VARCHAR(200) NOT NULL,\
+        #                                 post_title VARCHAR(200) NOT NULL,\
+        #                                 post_text VARCHAR(200) NOT NULL,\
+        #                                 post_photo BLOB NOT NULL,\
+        #                                 post_date DATE NOT NULL,\
+        #                                 fk_posts_catiegories int(11) REFERENCES catiegories(id),\
+        #                                 PRIMARY KEY(id))"
+            
+        #     cursor.execute(table)
+        #     print("sucess!")
+
+
+
+        cursor = connection.cursor()
+        while True:
+            print("Make a new Post - 1")
+            print("Make a new category - 2")
+            print("End - 3")
+            choice = input("Your answer: ")
+
+
+            # add a new data in database posts
+            if choice == "1":
+                pass
+
+
+
+            #add a new category in database category
+            elif choice == "2":
+                name = make_category()
+                insert_querry = "INSERT INTO catiegories (name) VALUES (%s);"
+                try:
+                    cursor.execute(insert_querry,name)
+                    connection.commit()
+                    print("The data was sucsessfuly uploaded")
+                except pymysql.Connection.Error as e:
+                    print(f"You type a wrong data!")
+
+            
+
+            elif choice == "3":
+                pass
+
+
+            else: 
+                print("Incorect number!")
+                break
+
+
+    #closing the session
     finally:
         connection.close()
 
+
+#tracking and print the all kinds Erors
 except Exception as ex:
     print("NOT conection to", database)
     print(ex)
