@@ -42,44 +42,42 @@ try:
 
 
 
-         cursor = connection.cursor()
-        # while True:
-        #     print("Make a new Post - 1")
-        #     print("Make a new category - 2")
-        #     print("End - 3")
-        #     choice = input("Your answer: ")
+        cursor = connection.cursor()
+        while True:
+            print("Make a new Post - 1")
+            print("Make a new category - 2")
+            print("End - 3")
+            choice = input("Your answer: ")
 
 
-        #     # add a new data in database posts
-        #     if choice == "1":
-        #         pass
+            # add a new data in database posts
+            if choice == "1":
+                print("#" * 50)
+                make_post()
 
 
 
-        #     #add a new category in database category
-        #     elif choice == "2":
-        #         name = make_category()
-        #         insert_querry = "INSERT INTO catiegories (name) VALUES (%s);"
-        #         try:
-        #             cursor.execute(insert_querry,name)
-        #             connection.commit()
-        #             print("The data was sucsessfuly uploaded")
-        #             print("#" * 50)
-        #         except pymysql.Connection.Error as e:
-        #             print(f"You type a wrong data!")
+            #add a new category in database category
+            elif choice == "2":
+                name = make_category()
+                insert_querry = "INSERT INTO catiegories (name) VALUES (%s);"
+                try:
+                    cursor.execute(insert_querry,name)
+                    connection.commit()
+                    print("The data was sucsessfuly uploaded")
+                    print("#" * 50)
+                except pymysql.Connection.Error as e:
+                    print(f"You type a wrong data!")
 
             
 
-        #     elif choice == "3":
-        #         break
+            elif choice == "3":
+                break
 
 
-        #     else: 
-        #         print("Incorect number!")
-        #         break
-
-        photo = 
-        
+            else: 
+                print("Incorect number!")
+                break
 
 
 
