@@ -53,7 +53,24 @@ try:
             # add a new data in database posts
             if choice == "1":
                 print("#" * 50)
-                make_post()
+                print("Choose the category of your next post and then write the number below")
+                cursor.execute("SELECT * FROM `catiegories`")
+                rows = cursor.fetchall()
+                for row in rows:
+                    for key, value in row.items():
+                        print(f"{value}", end="  |  ")
+                    print()
+                    
+
+
+
+
+
+                print("#"*50)
+                name,title,text,photo,date,catiegories=make_post()
+                post_data = (name,title,text,photo,date,catiegories)
+                print(post_data)
+
 
 
 

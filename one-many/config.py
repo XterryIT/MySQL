@@ -3,7 +3,7 @@ from datetime import datetime
 host = 'localhost'
 user = 'root'
 password = ''
-database = 'login'
+database = 'game_news'
 
 
 def make_category():
