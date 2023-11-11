@@ -62,14 +62,13 @@ try:
                     print()
                     
 
-
-
-
-
+                #Upload a new post to database 
                 print("#"*50)
                 name,title,text,photo,date,catiegories=make_post()
                 post_data = (name,title,text,photo,date,catiegories)
-                print(post_data)
+                insert_querry = "INSERT INTO posts (post_name, post_title, post_text, post_photo, post_date, fk_posts_catiegories) VALUES (%s,%s,%s,%s,%s,%s);"
+                cursor.execute(insert_querry,post_data)
+                connection.commit()
 
 
 
