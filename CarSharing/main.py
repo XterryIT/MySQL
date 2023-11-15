@@ -1,5 +1,6 @@
 import functions
 import pymysql
+from tabels import * 
 from config import host,user,password,database
 
 
@@ -18,7 +19,9 @@ def main():
 
     #inplementing code
         try:
-            pass
+            with connection.cursor() as cursor:
+                cursor.execute(Booking)
+                connection.commit()
 
 
     #closing the session
