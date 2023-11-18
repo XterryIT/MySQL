@@ -21,7 +21,7 @@ def main():
     #inplementing code
         try:
             with connection.cursor() as cursor:
-                
+                exit = True
                 while(True):
 
                     #Here I`am want to that person to loggin in my app 
@@ -44,16 +44,22 @@ def main():
                                 print("ADMIN PANEL")
                                 print("-"*50)
                                 print("Add a car (1)")
+                                print("Exit (2)")
                                 chose_admin = int(input("Your answer: "))
 
                                 if chose_admin == 1:
-                                    add_car()
-
-
+                                    add_car(cursor,connection)
+                                
+                                #Exit from admin Panel
+                                if chose_admin == 2:
+                                    exit = False
+                                    break
 
                         else: 
                             pass
                     
+                    #When You Exit from Admin Panel, the app woll stoped
+                    if exit == False : break
 
                     #If a person does not have an account, he must be created here
                     elif chose == 2:
@@ -61,6 +67,8 @@ def main():
 
 
 
+
+                    # Here I open acces to the application after login or regestration
                     print("-"*50)
                     print("Welcome to CarSharing")
                     print("-"*50)
