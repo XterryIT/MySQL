@@ -1,9 +1,9 @@
 import os
-from functions import login, regestration
 import pymysql
 from tabels import * 
 from config import host,user,password,database
-
+from users_functions import login, regestration
+from admin_functions import add_car
 
 def main():
     try:
@@ -21,19 +21,59 @@ def main():
     #inplementing code
         try:
             with connection.cursor() as cursor:
-
-                #Here I`am want to that person to loggin in my app 
+                
                 while(True):
+
+                    #Here I`am want to that person to loggin in my app 
                     print("Welcome to application CarSharing")
                     print("You want Login (1) or regestration account (2)?")
                     chose = int(input("Your answer: "))
                     os.system('cls')
                     
-                    if chose == 1:
-                        login(cursor)            
 
+                    # Login in app
+                    if chose == 1:
+                        temp1, temp2 = login(cursor)
+
+                        #Here I chek reterned email and password, if its admin I start a admin panel
+                        if temp1 == "root" and temp2 == "0000":
+
+                            #This is admin panel
+                            while(True):
+                                print("-"*50)
+                                print("ADMIN PANEL")
+                                print("-"*50)
+                                print("Add a car (1)")
+                                chose_admin = int(input("Your answer: "))
+
+                                if chose_admin == 1:
+                                    add_car()
+
+
+
+                        else: 
+                            pass
+                    
+
+                    #If a person does not have an account, he must be created here
                     elif chose == 2:
                         regestration(cursor,connection)
+
+
+
+                    print("-"*50)
+                    print("Welcome to CarSharing")
+                    print("-"*50)
+                    print("list of available cars (1)")
+                    print("Book a car (2)")
+                    chose = int(input("Your answer: "))
+
+                    if chose == 1:
+                        pass
+
+                    if chose == 2:
+                        pass
+
 
 
 
@@ -65,6 +105,8 @@ def main():
 
 
    
+
+
 
 
 if __name__ == '__main__':

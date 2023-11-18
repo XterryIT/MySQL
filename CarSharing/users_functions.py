@@ -18,8 +18,11 @@ def login(cursor):
         print("You are in the system!")
         time.sleep(2)
         os.system('cls')
+        return email,login_password
     else:
         print("Somting wrong!")
+        time.sleep(2)
+        os.system('cls')
 
 
 
@@ -36,5 +39,7 @@ def regestration(cursor,connection):
     connection.commit()
 
     print("Your account was successfully created!!")
+    time.sleep(2)
+    os.system('cls')
     
 
