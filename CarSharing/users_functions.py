@@ -43,3 +43,6 @@ def regestration(cursor,connection):
     os.system('cls')
     
 
+
+def list_cars(cursor,connection):
+    request = """ SELECT  """

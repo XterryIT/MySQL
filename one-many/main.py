@@ -46,7 +46,8 @@ try:
         while True:
             print("Make a new Post - 1")
             print("Make a new category - 2")
-            print("End - 3")
+            print("Show the posts one of the category - 3")
+            print("End - 4")
             choice = input("Your answer: ")
 
 
@@ -88,6 +89,48 @@ try:
             
 
             elif choice == "3":
+                print("#" * 50)
+
+                cursor.execute("SELECT * FROM `catiegories`")
+                rows = cursor.fetchall()
+                for row in rows:
+                    for key, value in row.items():
+                        print(f"{value}", end="  |  ")
+                    print()
+                    
+
+                print("#"*50)
+
+                chose = int(input("Select the category of posts you want to read: "))
+
+                cursor.execute("SELECT id FROM `catiegories`")
+                rows = cursor.fetchall()
+                id_values = [item['id'] for item in rows]
+                
+                if chose in id_values:
+                    num = str(chose)
+                    request = """ SELECT post_name FROM `posts` WHERE fk_posts_catiegories = %s """
+                    cursor.execute(request, chose)
+                    category = cursor.fetchall()
+
+                    print("#"*30)
+                    for item in category:
+                        print(item['post_name'])
+                    print("#"*30)
+                else:
+                    print("Incorect number")
+
+                
+
+
+
+
+
+
+
+
+
+            elif choice == "4":
                 break
 
 
